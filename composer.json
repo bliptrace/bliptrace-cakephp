@@ -1,0 +1,55 @@
+{
+    "name": "g8scope/cakephp",
+    "version": "1.0.0",
+    "description": "CakePHP SDK for g8scope — auto-captures exceptions and ships them to the ingest API. Thin adapter over g8scope/php.",
+    "keywords": [
+        "cakephp",
+        "g8scope",
+        "error-tracking",
+        "observability",
+        "sdk"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "g8scope/php": "*"
+    },
+    "suggest": {
+        "cakephp/cakephp": "^5.0"
+    },
+    "require-dev": {
+        "pestphp/pest": "^3.0",
+        "laravel/pint": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "G8Scope\\CakePHP\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "G8Scope\\CakePHP\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "lint": "vendor/bin/pint"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../g8scope-php",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
