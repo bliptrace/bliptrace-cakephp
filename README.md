@@ -3,7 +3,7 @@
 A thin CakePHP adapter for [g8scope](https://scope.g8suite.com) — it auto-captures
 exceptions from your CakePHP application and ships them to the g8scope ingest API.
 
-It is a lightweight integration over the runtime [`g8scope/php`](../bliptrace-php)
+It is a lightweight integration over the runtime [`bliptrace/php`](../bliptrace-php)
 client: a Cake error-handling hook, config glue, request-context enrichment and
 a Reporter. It **never throws into the host app** — a slow or unavailable ingest
 endpoint will never break your application.
@@ -14,7 +14,7 @@ endpoint will never break your application.
 ## Installation
 
 ```bash
-composer require g8scope/cakephp
+composer require bliptrace/cakephp
 ```
 
 Requires PHP 8.2+ and CakePHP 5.x.
@@ -133,7 +133,7 @@ register_shutdown_function(fn () => $reporter->send($envelope));
 
 ## Testing
 
-This package's own tests depend only on `g8scope/php` (no CakePHP), so they run
+This package's own tests depend only on `bliptrace/php` (no CakePHP), so they run
 fast. The Cake-specific class guards its CakePHP references via duck-typing and
 is safe to autoload without `cakephp/cakephp` installed.
 
