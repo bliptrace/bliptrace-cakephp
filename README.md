@@ -3,7 +3,7 @@
 A thin CakePHP adapter for [g8scope](https://scope.g8suite.com) — it auto-captures
 exceptions from your CakePHP application and ships them to the g8scope ingest API.
 
-It is a lightweight integration over the runtime [`g8scope/php`](../g8scope-php)
+It is a lightweight integration over the runtime [`g8scope/php`](../bliptrace-php)
 client: a Cake error-handling hook, config glue, request-context enrichment and
 a Reporter. It **never throws into the host app** — a slow or unavailable ingest
 endpoint will never break your application.
