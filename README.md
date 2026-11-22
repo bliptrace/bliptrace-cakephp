@@ -26,13 +26,15 @@ or via `Configure::write()`), reading secrets from the environment:
 
 ```php
 // config/app_local.php
+use G8Scope\Php\Env; // BLIPTRACE_<NAME>, falling back to G8SCOPE_<NAME>
+
 return [
     'G8Scope' => [
-        'enabled' => filter_var(env('G8SCOPE_ENABLED', true), FILTER_VALIDATE_BOOL),
-        'key' => env('G8SCOPE_KEY'),
-        'endpoint' => env('G8SCOPE_ENDPOINT', 'https://ingest.scope.g8suite.com'),
-        'environment' => env('G8SCOPE_ENV', 'production'),
-        'release' => env('G8SCOPE_RELEASE'),
+        'enabled' => filter_var(Env::get('ENABLED', 'true'), FILTER_VALIDATE_BOOL),
+        'key' => Env::get('KEY'),
+        'endpoint' => Env::get('ENDPOINT', 'https://ingest.scope.g8suite.com'),
+        'environment' => Env::get('ENVIRONMENT', 'production'),
+        'release' => Env::get('RELEASE'),
         'timeout' => 3,
         'maxFrames' => 30,
         'maxMessage' => 2000,
@@ -45,6 +47,10 @@ return [
     ],
 ];
 ```
+
+> **Env names:** `G8Scope\Php\Env::get('KEY')` (from `bliptrace/php` ^1.2) reads `BLIPTRACE_KEY` and
+> falls back to the deprecated `G8SCOPE_KEY` when it is unset (fallback removed in 2.0). Rename your
+> variables to `BLIPTRACE_*`; `G8SCOPE_ENV` becomes `BLIPTRACE_ENVIRONMENT`.
 
 | Key | Default | Notes |
 |---|---|---|
