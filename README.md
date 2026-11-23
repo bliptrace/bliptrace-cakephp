@@ -1,6 +1,6 @@
 # g8scope CakePHP SDK
 
-A thin CakePHP adapter for [g8scope](https://scope.g8suite.com) — it auto-captures
+A thin CakePHP adapter for [Bliptrace](https://bliptrace.com) — it auto-captures
 exceptions from your CakePHP application and ships them to the g8scope ingest API.
 
 It is a lightweight integration over the runtime [`bliptrace/php`](../bliptrace-php)
@@ -32,7 +32,7 @@ return [
     'G8Scope' => [
         'enabled' => filter_var(Env::get('ENABLED', 'true'), FILTER_VALIDATE_BOOL),
         'key' => Env::get('KEY'),
-        'endpoint' => Env::get('ENDPOINT', 'https://ingest.scope.g8suite.com'),
+        'endpoint' => Env::get('ENDPOINT', 'https://ingest.bliptrace.com/v1/ingest'),
         'environment' => Env::get('ENVIRONMENT', 'production'),
         'release' => Env::get('RELEASE'),
         'timeout' => 3,
@@ -56,7 +56,7 @@ return [
 |---|---|---|
 | `enabled` | `true` | Master kill switch. |
 | `key` | `null` | Ingest key. No key → nothing is shipped. |
-| `endpoint` | `https://ingest.scope.g8suite.com` | Ingest base URL. Posts to `{endpoint}/v1/ingest` with `X-Ingest-Key`. |
+| `endpoint` | `https://ingest.bliptrace.com/v1/ingest` | Ingest URL (a bare base URL also works: `/v1/ingest` is appended when missing). Sent with `X-Ingest-Key`. |
 | `environment` | `production` | |
 | `release` | `null` | Version/commit of your deploy. |
 | `timeout` | `3` | Transport timeout (seconds). |

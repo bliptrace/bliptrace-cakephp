@@ -29,7 +29,7 @@ final class G8ScopeConfig
     {
         return new Config(
             key: self::str($config, 'key'),
-            endpoint: self::str($config, 'endpoint') ?? 'https://ingest.scope.g8suite.com',
+            endpoint: self::str($config, 'endpoint') ?? 'https://ingest.bliptrace.com/v1/ingest',
             environment: self::str($config, 'environment') ?? 'production',
             release: self::str($config, 'release'),
             timeout: (int) ($config['timeout'] ?? 3),

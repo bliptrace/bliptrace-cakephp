@@ -10,7 +10,7 @@ it('maps a config array onto the runtime Config with defaults', function (): voi
 
     expect($config)->toBeInstanceOf(Config::class)
         ->and($config->key)->toBe('abc')
-        ->and($config->endpoint)->toBe('https://ingest.scope.g8suite.com')
+        ->and($config->endpoint)->toBe('https://ingest.bliptrace.com/v1/ingest')
         ->and($config->environment)->toBe('production')
         ->and($config->enabled)->toBeTrue()
         ->and($config->sdkName)->toBe('g8scope-cakephp');
