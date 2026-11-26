@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace G8Scope\CakePHP\Error;
+namespace Bliptrace\CakePHP\Error;
 
-use G8Scope\CakePHP\G8ScopeConfig;
-use G8Scope\CakePHP\Reporter;
-use G8Scope\Php\Client;
+use Bliptrace\CakePHP\BliptraceConfig;
+use Bliptrace\CakePHP\Reporter;
+use Bliptrace\Php\Client;
 use Throwable;
 
 /**
@@ -22,22 +22,22 @@ use Throwable;
  * Wiring (in src/Application.php — see README):
  *
  *     use Cake\Error\ErrorTrap;
- *     use G8Scope\CakePHP\Error\G8ScopeErrorHandler;
+ *     use Bliptrace\CakePHP\Error\BliptraceErrorHandler;
  *
  *     public function bootstrap(): void
  *     {
  *         parent::bootstrap();
  *         (new ErrorTrap(Configure::read('Error')))
  *             ->getEventManager()
- *             ->on('Error.beforeRender', G8ScopeErrorHandler::fromConfig(
- *                 Configure::read('G8Scope', [])
+ *             ->on('Error.beforeRender', BliptraceErrorHandler::fromConfig(
+ *                 Configure::read('Bliptrace', [])
  *             ));
  *     }
  *
  * Or register the handler directly with the global ErrorTrap exposed by
  * `Cake\Error\ErrorTrap::instance()` where available.
  */
-final class G8ScopeErrorHandler
+final class BliptraceErrorHandler
 {
     public function __construct(
         private readonly Reporter $reporter,
@@ -50,7 +50,7 @@ final class G8ScopeErrorHandler
      */
     public static function fromConfig(array $config): self
     {
-        $client = new Client(G8ScopeConfig::fromArray($config));
+        $client = new Client(BliptraceConfig::fromArray($config));
 
         return new self(new Reporter($client));
     }

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace G8Scope\CakePHP;
+namespace Bliptrace\CakePHP;
 
-use G8Scope\Php\Config;
+use Bliptrace\Php\Config;
 
 /**
  * Config holder for the CakePHP adapter. Maps a plain CakePHP-style config
- * array (e.g. from `Configure::read('G8Scope')` or an env file) onto the
+ * array (e.g. from `Configure::read('Bliptrace')` or an env file) onto the
  * runtime SDK's immutable {@see Config}.
  *
  * The `project` is never part of this config — it is resolved server-side
  * from the ingest key (anti-spoof).
  */
-final class G8ScopeConfig
+final class BliptraceConfig
 {
     /**
      * Build a runtime {@see Config} from a CakePHP-style config array.
@@ -39,7 +39,7 @@ final class G8ScopeConfig
             scrubKeys: self::list($config, 'scrubKeys', 'scrub_keys'),
             basePath: self::str($config, 'basePath') ?? self::str($config, 'base_path') ?? '',
             enabled: (bool) ($config['enabled'] ?? true),
-            sdkName: self::str($config, 'sdkName') ?? 'g8scope-cakephp',
+            sdkName: self::str($config, 'sdkName') ?? 'bliptrace-cakephp',
             sdkVersion: self::str($config, 'sdkVersion') ?? '1.0.0',
         );
     }

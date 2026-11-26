@@ -1,10 +1,10 @@
 {
     "name": "bliptrace/cakephp",
     "version": "1.0.0",
-    "description": "CakePHP SDK for g8scope — auto-captures exceptions and ships them to the ingest API. Thin adapter over bliptrace/php.",
+    "description": "CakePHP SDK for Bliptrace — auto-captures exceptions and ships them to the ingest API. Thin adapter over bliptrace/php.",
     "keywords": [
         "cakephp",
-        "g8scope",
+        "bliptrace",
         "error-tracking",
         "observability",
         "sdk"
@@ -12,7 +12,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "bliptrace/php": "^1.3"
+        "bliptrace/php": "^2.0"
     },
     "suggest": {
         "cakephp/cakephp": "^5.0"
@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "G8Scope\\CakePHP\\": "src/"
+            "Bliptrace\\CakePHP\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "G8Scope\\CakePHP\\Tests\\": "tests/"
+            "Bliptrace\\CakePHP\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -40,7 +40,8 @@
             "type": "path",
             "url": "../bliptrace-php",
             "options": {
-                "symlink": true
+                "symlink": true,
+                "versions": { "bliptrace/php": "2.0.0" }
             }
         }
     ],

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-use G8Scope\CakePHP\G8ScopeConfig;
-use G8Scope\CakePHP\Reporter;
-use G8Scope\Php\Client;
-use G8Scope\Php\Transport\Transport;
+use Bliptrace\CakePHP\BliptraceConfig;
+use Bliptrace\CakePHP\Reporter;
+use Bliptrace\Php\Client;
+use Bliptrace\Php\Transport\Transport;
 
 function reporterWith(FakeTransport $t, array $overrides = []): Reporter
 {
-    $config = G8ScopeConfig::fromArray([
+    $config = BliptraceConfig::fromArray([
         'key' => array_key_exists('key', $overrides) ? $overrides['key'] : 'test-key',
         'endpoint' => $overrides['endpoint'] ?? 'http://api.test',
         'enabled' => $overrides['enabled'] ?? true,
@@ -31,7 +31,7 @@ it('builds and ships a valid envelope for an exception', function (): void {
         ->and($envelope['exception']['type'])->toBe('RuntimeException')
         ->and($envelope['exception']['message'])->toBe('boom')
         ->and($envelope['runtime']['name'])->toBe('php')
-        ->and($envelope['sdk']['name'])->toBe('g8scope-cakephp');
+        ->and($envelope['sdk']['name'])->toBe('bliptrace-cakephp');
 });
 
 it('enriches the envelope with request context (stripping secrets)', function (): void {
@@ -88,7 +88,7 @@ it('never throws even when the transport fails', function (): void {
         }
     };
 
-    $reporter = new Reporter(new Client(G8ScopeConfig::fromArray(['key' => 'k']), $throwing));
+    $reporter = new Reporter(new Client(BliptraceConfig::fromArray(['key' => 'k']), $throwing));
 
     expect(fn () => $reporter->capture(new Exception('boom')))->not->toThrow(Throwable::class);
 });

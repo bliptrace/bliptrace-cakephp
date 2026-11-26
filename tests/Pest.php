@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use G8Scope\Php\Transport\Transport;
+use Bliptrace\Php\Transport\Transport;
 
 /**
  * In-memory transport for assertions — captures every shipped envelope

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-use G8Scope\CakePHP\G8ScopeConfig;
-use G8Scope\Php\Config;
+use Bliptrace\CakePHP\BliptraceConfig;
+use Bliptrace\Php\Config;
 
 it('maps a config array onto the runtime Config with defaults', function (): void {
-    $config = G8ScopeConfig::fromArray(['key' => 'abc']);
+    $config = BliptraceConfig::fromArray(['key' => 'abc']);
 
     expect($config)->toBeInstanceOf(Config::class)
         ->and($config->key)->toBe('abc')
         ->and($config->endpoint)->toBe('https://ingest.bliptrace.com/v1/ingest')
         ->and($config->environment)->toBe('production')
         ->and($config->enabled)->toBeTrue()
-        ->and($config->sdkName)->toBe('g8scope-cakephp');
+        ->and($config->sdkName)->toBe('bliptrace-cakephp');
 });
 
 it('maps explicit values including camelCase and snake_case keys', function (): void {
-    $config = G8ScopeConfig::fromArray([
+    $config = BliptraceConfig::fromArray([
         'key' => 'k',
         'endpoint' => 'http://api.test',
         'environment' => 'staging',
@@ -45,5 +45,5 @@ it('maps explicit values including camelCase and snake_case keys', function (): 
 });
 
 it('treats an empty key as null', function (): void {
-    expect(G8ScopeConfig::fromArray(['key' => ''])->key)->toBeNull();
+    expect(BliptraceConfig::fromArray(['key' => ''])->key)->toBeNull();
 });

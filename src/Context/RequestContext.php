@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace G8Scope\CakePHP\Context;
+namespace Bliptrace\CakePHP\Context;
 
 /**
  * Builds the envelope context from the current CakePHP request (if any).

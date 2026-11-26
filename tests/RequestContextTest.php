@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use G8Scope\CakePHP\Context\RequestContext;
+use Bliptrace\CakePHP\Context\RequestContext;
 
 it('yields only custom when there is no request', function (): void {
     expect(RequestContext::capture(null))->toBe(['custom' => []]);

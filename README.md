@@ -1,7 +1,7 @@
-# g8scope CakePHP SDK
+# Bliptrace CakePHP SDK
 
 A thin CakePHP adapter for [Bliptrace](https://bliptrace.com) — it auto-captures
-exceptions from your CakePHP application and ships them to the g8scope ingest API.
+exceptions from your CakePHP application and ships them to the Bliptrace ingest API.
 
 It is a lightweight integration over the runtime [`bliptrace/php`](../bliptrace-php)
 client: a Cake error-handling hook, config glue, request-context enrichment and
@@ -21,15 +21,15 @@ Requires PHP 8.2+ and CakePHP 5.x.
 
 ## Configuration
 
-Add a `G8Scope` block to your CakePHP configuration (e.g. `config/app_local.php`
+Add a `Bliptrace` block to your CakePHP configuration (e.g. `config/app_local.php`
 or via `Configure::write()`), reading secrets from the environment:
 
 ```php
 // config/app_local.php
-use G8Scope\Php\Env; // BLIPTRACE_<NAME>, falling back to G8SCOPE_<NAME>
+use Bliptrace\Php\Env; // reads BLIPTRACE_<NAME>
 
 return [
-    'G8Scope' => [
+    'Bliptrace' => [
         'enabled' => filter_var(Env::get('ENABLED', 'true'), FILTER_VALIDATE_BOOL),
         'key' => Env::get('KEY'),
         'endpoint' => Env::get('ENDPOINT', 'https://ingest.bliptrace.com/v1/ingest'),
@@ -48,9 +48,7 @@ return [
 ];
 ```
 
-> **Env names:** `G8Scope\Php\Env::get('KEY')` (from `bliptrace/php` ^1.2) reads `BLIPTRACE_KEY` and
-> falls back to the deprecated `G8SCOPE_KEY` when it is unset (fallback removed in 2.0). Rename your
-> variables to `BLIPTRACE_*`; `G8SCOPE_ENV` becomes `BLIPTRACE_ENVIRONMENT`.
+> **Env names:** `Bliptrace\Php\Env::get('KEY')` (from `bliptrace/php` ^2.0) reads `BLIPTRACE_KEY`.
 
 | Key | Default | Notes |
 |---|---|---|
@@ -69,20 +67,20 @@ return [
 ## Wiring into CakePHP
 
 CakePHP 5 routes every rendered exception through `Cake\Error\ErrorTrap`, which
-dispatches an `Error.beforeRender` event. Register the g8scope handler against
+dispatches an `Error.beforeRender` event. Register the Bliptrace handler against
 that event in your `src/Application.php`:
 
 ```php
 use Cake\Core\Configure;
 use Cake\Error\ErrorTrap;
 use Cake\Event\EventManager;
-use G8Scope\CakePHP\Error\G8ScopeErrorHandler;
+use Bliptrace\CakePHP\Error\BliptraceErrorHandler;
 
 public function bootstrap(): void
 {
     parent::bootstrap();
 
-    $handler = G8ScopeErrorHandler::fromConfig(Configure::read('G8Scope', []));
+    $handler = BliptraceErrorHandler::fromConfig(Configure::read('Bliptrace', []));
 
     // Listen on the global event manager so any ErrorTrap instance is covered.
     EventManager::instance()->on('Error.beforeRender', $handler);
@@ -98,7 +96,7 @@ use Cake\Error\ErrorTrap;
 $errorTrap = new ErrorTrap(Configure::read('Error'));
 $errorTrap->getEventManager()->on(
     'Error.beforeRender',
-    G8ScopeErrorHandler::fromConfig(Configure::read('G8Scope', []))
+    BliptraceErrorHandler::fromConfig(Configure::read('Bliptrace', []))
 );
 $middlewareQueue->add(new ErrorHandlerMiddleware($errorTrap));
 ```
@@ -113,12 +111,12 @@ You can also report exceptions yourself — useful for caught/handled errors:
 
 ```php
 use Cake\Core\Configure;
-use G8Scope\CakePHP\G8ScopeConfig;
-use G8Scope\CakePHP\Reporter;
-use G8Scope\Php\Client;
+use Bliptrace\CakePHP\BliptraceConfig;
+use Bliptrace\CakePHP\Reporter;
+use Bliptrace\Php\Client;
 
 $reporter = new Reporter(new Client(
-    G8ScopeConfig::fromArray(Configure::read('G8Scope', []))
+    BliptraceConfig::fromArray(Configure::read('Bliptrace', []))
 ));
 
 try {

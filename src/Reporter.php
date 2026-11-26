@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace G8Scope\CakePHP;
+namespace Bliptrace\CakePHP;
 
-use G8Scope\CakePHP\Context\RequestContext;
-use G8Scope\Php\Client;
+use Bliptrace\CakePHP\Context\RequestContext;
+use Bliptrace\Php\Client;
 use Throwable;
 
 /**
